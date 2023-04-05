@@ -2,7 +2,7 @@
 
 ###Code Start###
 
-setwd("C:/Users/rhysi/OneDrive/Documents/Oxford/trail_run_for_github")
+setwd("/Users/rhysinward/Documents/Vietnam_nextstrain/Cosmo_manuscript/updated_run")
 
 # Clean the workspace and console
 closeAllConnections(); rm(list=ls())
@@ -32,28 +32,47 @@ library(ShortRead) #BiocManager::install("ShortRead")
 
 #DENV 2 EG
 
-tempest <- read.csv('results/DENV2_EG_tempest.txt',sep='')
+tempest <- read.csv('Results/DENV2_tempest.txt',sep='')
+taxa_split <- data.frame(do.call('rbind',strsplit(as.character(tempest$tip),'|',fixed = TRUE)))
+tempest$accession <- taxa_split$X3
 
-DENV2_EG_filtered <- filter(tempest, residual <= sd(tempest$residual) & residual >=
-                              -sd(tempest$residual))
+DENV2_EG_filtered <- tempest %>%
+  mutate(year = floor(date)) %>%
+  group_by(year) %>%
+  filter(distance <= (sd(tempest$distance)*4 + mean(tempest$distance))
+         & distance >= (mean(tempest$distance) -sd(tempest$distance)*4))
 
-DENV2 <- read.fasta("results/aligned.fasta")
+DENV2 <- read.fasta("Results/denv2_E_gene.fasta")
+seq_name <- as.data.frame(as.matrix(attributes(DENV2)$names))
+taxa_split <- data.frame(do.call('rbind',strsplit(as.character(seq_name$V1),'|',fixed = TRUE)))
 
-DENV2_EG <- DENV2[names(DENV2) %in% DENV2_EG_filtered$tip]
+vec.tokeep <-which(taxa_split$X3 %in%  DENV2_EG_filtered$accession)
 
-write.dna(DENV2_EG, file=("results/denv2_E_gene_QC.fasta"), format="fasta",
-          nbcol=-1, colsep="")
+length(vec.tokeep)
 
-#DENV 2 WG
+write.fasta(sequences=DENV2[vec.tokeep], names=names(DENV2)[vec.tokeep], file.out="Results/denv2_E_gene_cleaned.fasta")
 
-tempest <- read.csv('Results/DENV2_WG_tempest.txt',sep='')
 
-DENV2_WG_filtered <- filter(tempest, residual <= sd(tempest$residual) & residual >=
-                              -sd(tempest$residual))
+#DENV 2 Cosmo
 
-DENV2 <- read.fasta("Results/denv2_WG.fasta")
+tempest <- read.csv('Results/DENV2_cosmo_tempest.txt',sep='')
+taxa_split <- data.frame(do.call('rbind',strsplit(as.character(tempest$tip),'|',fixed = TRUE)))
+tempest$accession <- taxa_split$X3
 
-DENV2_WG <- DENV2[names(DENV2) %in% DENV2_WG_filtered$tip]
+DENV2_EG_filtered <- tempest %>%
+  mutate(year = floor(date)) %>%
+  group_by(year) %>%
+  filter(distance <= (sd(tempest$distance)*4 + mean(tempest$distance))
+         & distance >= (mean(tempest$distance) -sd(tempest$distance)*4))
 
-write.dna(DENV2_WG, file=("results/denv2_WG_QC.fasta"), format="fasta",
-          nbcol=-1, colsep="")
+DENV2 <- read.fasta("Results/denv2_E_gene_cosmo.fasta")
+seq_name <- as.data.frame(as.matrix(attributes(DENV2)$names))
+taxa_split <- data.frame(do.call('rbind',strsplit(as.character(seq_name$V1),'|',fixed = TRUE)))
+
+vec.tokeep <-which(taxa_split$X3 %in%  DENV2_EG_filtered$accession)
+
+length(vec.tokeep)
+
+write.fasta(sequences=DENV2[vec.tokeep], names=names(DENV2)[vec.tokeep], file.out="Results/denv2_E_gene_cosmo_cleaned.fasta")
+
+
