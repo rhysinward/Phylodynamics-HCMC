@@ -53,7 +53,7 @@ npm install --global auspice
 
 ## Step 4: Alignment 
 
-We aligned our sequences using MAFFT](https://mafft.cbrc.jp/alignment/software/) which is the defult of [nextstrain](https://nextstrain.org/). This can be done by :
+We aligned our sequences using [MAFFT](https://mafft.cbrc.jp/alignment/software/) which is the defult of [nextstrain](https://nextstrain.org/). This can be done by :
 ```
 conda activate nextstrain
 augur align --sequences data/dengue_denv2_unaligned.fasta --reference-sequence config/KF955363.gb --output results/aligned.fasta --fill-gaps --remove-reference
