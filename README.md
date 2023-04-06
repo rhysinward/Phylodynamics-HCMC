@@ -7,7 +7,7 @@ This respoitory contains all the code and data used for the analysis presented i
 
 ## Step 1: Download genomic and metadata from Genbank
 
-- Download data for DENV-2 from [GenBank](https://www.ncbi.nlm.nih.gov/labs/virus/vssi/#/virus?SeqType_s=Nucleotide&VirusLineage_ss=Dengue%20virus%20type%202,%20taxid:11060&utm_source=data-hub)
+- Download data for DENV-2 from [GenBank](https://www.ncbi.nlm.nih.gov/labs/virus/vssi/#/virus?SeqType_s=Nucleotide&VirusLineage_ss=Dengue%20virus%20type%202,%20taxid:11060&utm_source=data-hub) (data downloaded 2022-12-19)
 - Here we downloaded both the fasta file and metadata for the sequences - N.B. we are able to do some additional filtering on the interface if needed
   - Make sure when you download the metadata you add the Country column
 
