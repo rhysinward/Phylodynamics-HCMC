@@ -1,6 +1,6 @@
 # Phylodynamics-HCMC
 
-This respoitory contains all the code and data used for the analysis presented in 'Cryptic transmission and re-emergence of Cosmopolitan genotype of Dengue Virus Serotype 2 within Ho Chi Minh City and Southern Vietnam' - INSERT LINK TO PRE-PRINT WHEN UPLOADED
+This respoitory contains all the code and data used for the analysis presented in 'Cryptic transmission and re-emergence of Cosmopolitan genotype of Dengue Virus Serotype 2 within Ho Chi Minh City and Southern Vietnam' - https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10521597/
 
 
 # Step by step process of pipeline 
